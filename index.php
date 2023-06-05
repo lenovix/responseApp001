@@ -1,5 +1,15 @@
 <?php
 require './db/koneksi.php';
+
+// Mulai session
+session_start();
+
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, redirect ke halaman login
+    header('Location: ./auth/login');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,93 +18,57 @@ require './db/koneksi.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Response App</title>
-    <link rel="stylesheet" href="core.css">
+    <title>Emergency Response App</title>
+    <link rel="stylesheet" href="./css/core.css">
+    <link rel="stylesheet" href="./css/customCSS.css">
 </head>
 
 <body>
-    <div class="card">
-        <h5 class="card-header">Ambulance Unit Response</h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Users</th>
-                        <th>Address</th>
-                        <th>Situation</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    <tr>
-                        <?php
-                        $query = "SELECT request_unit.*, users.name AS nama_pengguna
-                        FROM request_unit
-                        INNER JOIN users ON request_unit.user_id = users.user_id
-                        WHERE request_unit.unit = 'Ambulan'";
+    <div class="sidebar">
+        <ul>
+            <a href="index">
+                <div class="hover selected">
+                    <li>Home</li>
+                </div>
+            </a>
+            <a href="./pages/ambulance">
+                <div class="hover">
+                    <li>Ambulance</li>
+                </div>
+            </a>
+            <a href="./pages/police">
+                <div class="hover">
+                    <li>Police</li>
+                </div>
+            </a>
+            <a href="./pages/firefighter">
+                <div class="hover">
+                    <li>Firefighter</li>
+                </div>
+            </a>
+            <a href="./auth/logout.php">
+                <div class="hover">
+                    <li>Log Out</li>
+                </div>
+            </a>
+        </ul>
+    </div>
 
-                        $result = mysqli_query($koneksi, $query);
-                        if ($result) {
-                            // Menampilkan data
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                ?>
-                                <td>
-                                    <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                    <strong>
-                                        <?php echo $row['nama_pengguna']; ?>
-                                    </strong>
-                                </td>
-                                <td>
-                                    <?php echo $row['address']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['situation']; ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($row['status'] == "Scheduled") {
-                                        ?>
-                                        <span class="badge bg-label-info me-1">Scheduled</span>
-                                        <?php
-                                    } elseif ($row['status'] == "Completed") {
-                                        ?>
-                                        <span class="badge bg-label-success me-1">Completed</span>
-                                        <?php
-                                    } elseif ($row['status'] == "Pending") {
-                                        ?>
-                                        <span class="badge bg-label-warning me-1">Pending</span>
-                                        <?php
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1"></i>
-                                                Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php
-                            }
-                        } else {
-                            // Menampilkan pesan jika terjadi kesalahan dalam eksekusi query
-                            echo "Error: " . mysqli_error($koneksi);
-                        }
-                        ?>
-                </tbody>
-            </table>
-        </div>
+    <div class="content">
+        <h1>Selamat datang,
+            <?php echo $_SESSION['username']; ?>!
+        </h1>
+        <hr>
+        <h3>Ichsanul Kamil Sudarmi (001201900001)</h3>
+        <h5>Information technology Student</h5>
+        <p>Saya adalah seorang mahasiswa tingkat akhir yang sedang mengembangkan aplikasi Emergency Response App. Tujuan
+            dari aplikasi ini adalah untuk memberikan respons darurat yang cepat dan efisien dalam situasi darurat.
+            Aplikasi ini akan menggunakan algoritma Naive Bayes untuk mengidentifikasi unit apa yang akan dikirim
+            berdasarkan informasi yang diterima. Saya telah menetapkan timeline yang ketat untuk pengembangan aplikasi
+            ini, dan saya berencana untuk meluncurkannya dalam enam bulan ke depan. Saya juga akan menggunakan berbagai
+            tools dan teknologi seperti PHP, MySQL, HTML, CSS, dan JavaScript untuk mengembangkan aplikasi ini dan
+            memastikan kinerjanya yang optimal.
+        </p>
     </div>
 </body>
 

@@ -1,0 +1,35 @@
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #9BA4B5;
+    float: left;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    padding: 10px;
+}
+
+.hover:hover {
+    background-color: #F1F6F9;
+}
+
+.selected {
+    background-color: #F1F6F9;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #000;
+}
+
+.content {
+    margin-left: 11%;
+    /* Lebar sidebar + margin */
+    padding: 20px;
+}
