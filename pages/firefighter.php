@@ -91,7 +91,15 @@ if (!isset($_SESSION['username'])) {
                                     <?php echo $row['address']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['situation']; ?>
+                                    <?php
+                                    if ($row['situation'] == "EMERGENCY") {
+                                        ?>
+                                        <b>EMERGENCY</b>
+                                        <?php
+                                    } else {
+                                        echo $row['situation'];
+                                    }
+                                    ?>
                                 </td>
                                 <td>
                                     <?php
