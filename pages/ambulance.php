@@ -60,11 +60,12 @@ if (!isset($_SESSION['username'])) {
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Report ID</th>
                         <th>Users</th>
                         <th>Address</th>
                         <th>Situation</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -81,8 +82,9 @@ if (!isset($_SESSION['username'])) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 ?>
                                 <td>
-                                    <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <?php echo $row['report_id']; ?>
+                                </td>
+                                <td>
                                     <strong>
                                         <?php echo $row['nama_pengguna']; ?>
                                     </strong>
@@ -103,9 +105,9 @@ if (!isset($_SESSION['username'])) {
                                 </td>
                                 <td>
                                     <?php
-                                    if ($row['status'] == "Scheduled") {
+                                    if ($row['status'] == "Handled") {
                                         ?>
-                                        <span class="badge bg-label-info me-1">Scheduled</span>
+                                        <span class="badge bg-label-info me-1">Handled</span>
                                         <?php
                                     } elseif ($row['status'] == "Completed") {
                                         ?>
@@ -118,7 +120,7 @@ if (!isset($_SESSION['username'])) {
                                     }
                                     ?>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                             data-bs-toggle="dropdown">
@@ -132,7 +134,7 @@ if (!isset($_SESSION['username'])) {
                                                 Delete</a>
                                         </div>
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                             <?php
                             }
